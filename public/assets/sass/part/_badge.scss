@@ -1,0 +1,20 @@
+.badge {
+    font-size: 1rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    
+    &.success {
+        color: var(--c-greenLime);
+        background-color: var(--c-lightGreen);
+    }
+
+    &.warning {
+        color: var(--c-orange);
+        background-color: var(--c-lightOrange);
+    }
+
+    &.danger {
+        color: var(--c-red);
+        background-color: var(--c-lightRed);
+    }
+}

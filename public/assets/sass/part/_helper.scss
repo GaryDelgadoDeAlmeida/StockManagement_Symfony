@@ -1,0 +1,62 @@
+/* --------------------------------------
+    Width
+-------------------------------------- */
+.w-25 {
+    width: 25%;
+}
+
+.w-50 {
+    width: 50%;
+}
+
+.w-75 {
+    width: 75%;
+}
+
+/* --------------------------------------
+    Height
+-------------------------------------- */
+.h-400p {
+    height: 400px;
+}
+
+/* --------------------------------------
+    Texte
+-------------------------------------- */
+.txt-left {
+    text-align: left;
+}
+
+.txt-right {
+    text-align: right;
+}
+
+.txt-justify {
+    text-align: justify;
+}
+
+/* --------------------------------------
+    Texte color
+-------------------------------------- */
+.c-green {
+    color: var(--c-greenLime);
+}
+
+.c-yellow {
+    color: var(--c-orange);
+}
+
+.c-red {
+    color: var(--c-darkRed);
+}
+
+/* --------------------------------------
+    Background-color
+-------------------------------------- */
+.bg-transparent {
+    background-color: transparent;
+}
+
+.bg-grey {
+    background-color: var(--c-grey);
+}

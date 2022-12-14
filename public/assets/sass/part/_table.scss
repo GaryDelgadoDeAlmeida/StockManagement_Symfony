@@ -1,0 +1,138 @@
+table {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 10px;
+    border-collapse: collapse;
+    background-color: var(--c-white);
+
+    thead {
+        text-align: center;
+        color: var(--c-white);
+        background-color: var(--c-darkShadeCyanBlue);
+
+        tr > th {
+            padding: 10px 15px;
+        }
+    }
+
+    tbody {
+        tr {
+            
+            &:nth-child(even) {
+                background-color: var(--c-lightWhite);
+            }
+
+            &:hover {
+                background-color: var(--c-silver);
+            }
+
+            &.total-amount {
+                background-color: var(--c-aliceBlue);
+
+                td:last-child {
+                    background-color: var(--c-lightSilver);
+                }
+            }
+
+            td {
+                padding: 10px;
+                text-align: center;
+
+                .sale-name {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                button, a {
+                    border: none;
+                    font-size: 16px;
+                    border-radius: 0;
+                    background-color: transparent;
+
+                    img {
+                        height: 25px;
+                    }
+                }
+
+                img {
+                    height: 35px;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 766px) {
+        thead {
+            display: none;
+        }
+
+        tbody {
+            tr {
+                height: auto;
+                display: flex;
+                padding: 37px 0;
+                flex-direction: column;
+
+                td {
+                    text-align: left;
+                    padding-left: 40%;
+                    position: relative;
+                    margin-bottom: 24px;
+
+                    &::before {
+                        top: 0;
+                        left: 30px;
+                        width: 30%;
+                        padding: 10px;
+                        font-size: 14px;
+                        line-height: 1.2;
+                        position: absolute;
+                        font-weight: unset;
+                        color: var(--c-metalGray);
+                    }
+
+                    &._ID::before {
+                        content: "ID";
+                    }
+
+                    &._brand_name::before {
+                        content: "Brand name";
+                    }
+
+                    &._customer_name::before {
+                        content: "Customer name";
+                    }
+
+                    &._CPU::before {
+                        content: "CPU";
+                    }
+
+                    &._product_name::before {
+                        content: "Product name";
+                    }
+
+                    &._description::before {
+                        content: "Description";
+                    }
+
+                    &._caracteristics::before {
+                        content: "Caracteristics";
+                    }
+
+                    &._status::before {
+                        content: "Status";
+                    }
+
+                    &._stock::before {
+                        content: "Stock";
+                    }
+
+                    &._action::before {
+                        content: "Action";
+                    }
+                }
+            }
+        }
+    }
+}

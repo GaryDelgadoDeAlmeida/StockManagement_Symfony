@@ -1,0 +1,101 @@
+{% extends "baseAdmin.html.twig" %}
+
+{% block body %}
+<div class="card-content silver">
+    <div class="-header">
+        <div class="-left-content">
+            <h5>Customers</h5>
+        </div>
+        <div class="-right-content">
+            <form class="search-form">
+                <input 
+                    class="form-field"
+                    type="text"
+                    placeholder="Search a customer"
+                    maxLength=255
+                />
+
+                <button type="submit" class="form-button">
+                    <img src="{{ asset("/content/svg/magnifying-glass.svg") }}" alt="" />
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="-body">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in customers %}
+                    <tr>
+                        <td>{{ customer.id }}</td>
+                        <td>{{ customer.firstname }}</td>
+                        <td>{{ customer.lastname }}</td>
+                        <td>{{ customer.email }}</td>
+                        <td>{{ customer.phone }}</td>
+                        <td>{{ customer.address }}, {{ customer.city }} {{ customer.zipCode }}, {{ customer.country }}</td>
+                        <td>
+                            <a href="{{ path("app_admin_single_customer", {"customerID": customer.id}) }}">
+                                <img src="{{ asset("/content/svg/eye.svg") }}" alt="profil" />
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7">Il n'y a aucun clients</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if nbrOffset > 1 and offset <= nbrOffset %}
+            <div class="pagination">
+                <div class="pagination-wrapper">
+                    
+                    {% if offset - 1 >= 1 %}
+                        <div class="link">
+                            <a href="{{ path("app_admin_customer") }}">
+                                <img src="{{ asset("/content/svg/angles-left.svg") }}" alt="" />
+                            </a>
+                        </div>
+
+                        <div class="link">
+                            <a href="{{ path("app_admin_customer", {"offset": offset - 1}) }}">
+                                <span>{{ offset - 1 }}</span>
+                            </a>
+                        </div>
+                    {% endif %}
+
+                    <div class="link current">
+                        <span>{{ offset }}</span>
+                    </div>
+                    
+                    {% if offset + 1 <= nbrOffset %}
+                        <div class="link">
+                            <a href="{{ path("app_admin_customer", {"offset": offset + 1}) }}">
+                                <span>{{ offset + 1 }}</span>
+                            </a>
+                        </div>
+
+                        <div class="link">
+                            <a href="{{ path("app_admin_customer", {"offset": nbrOffset}) }}">
+                                <img src="{{ asset("/content/svg/angles-right.svg") }}" alt="" />
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

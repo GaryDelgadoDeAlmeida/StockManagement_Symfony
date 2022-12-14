@@ -1,0 +1,21 @@
+.home {
+    gap: 50px;
+    display: flex;
+    flex-direction: column;
+
+    .current-time {
+        margin: auto;
+        text-align: center;
+
+        .time {
+            font-size: 4rem;
+            font-weight: 600;
+        }
+
+        .date {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--c-sadBlue);
+        }
+    }
+}

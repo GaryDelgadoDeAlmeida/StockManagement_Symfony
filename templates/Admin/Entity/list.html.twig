@@ -1,0 +1,107 @@
+{% extends "baseAdmin.html.twig" %}
+
+{% block body %}
+<div class="card-content silver">
+    <div class="-header">
+        <div class="-left-content">
+            <h5>Provider</h5>
+            
+            <a href="{{ path("app_new_provider") }}" class="btn">
+                <button class="btn btn-outline-green">
+                    <img src="{{ asset("/content/svg/plus.svg") }}" alt="" />
+                </button>
+                </a>
+        </div>
+        <div class="-right-content">
+            <form class="search-form">
+                <input 
+                    class="form-field"
+                    type="text"
+                    maxLength="255"
+                    placeholder="Search a provider"
+                />
+                <button type="submit" class="form-button">
+                    <img src="{{ asset("/content/svg/magnifying-glass.svg") }}" alt="" />
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="-body">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>SIREN</th>
+                    <th>SIRET</th>
+                    <th>Address</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td>{{ entity.name }}</td>
+                        <td>{{ entity.siren }}</td>
+                        <td>{{ entity.siret }}</td>
+                        <td>{{ entity.address }}, {{ entity.zipCode }} {{ entity.city }}, {{ entity.country }}</td>
+                        <td>
+                            <a href="{{ path("app_admin_single_provider", {"providerID": entity.id}) }}">
+                                <img src="{{ asset("/content/svg/pencil.svg") }}" alt="" />
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">No provider has been found</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {# Pagination #}
+        {% if nbrOffset > 1 and offset <= nbrOffset %}
+            <div class="pagination">
+                <div class="pagination-wrapper">
+
+                    {% if offset > 1 %}
+                        <div class="link">
+                            <a href="{{ path("app_admin_provider") }}">
+                                <img src="{{ asset("/content/svg/angles-left.svg") }}" alt="" />
+                            </a>
+                        </div>
+                    {% endif %}
+                    
+                    {% if offset - 1 >= 1 %}
+                        <div class="link">
+                            <a href="{{ path("app_admin_provider", {"offset": offset - 1}) }}">
+                                <span>{{ offset - 1 }}</span>
+                            </a>
+                        </div>
+                    {% endif %}
+                    
+                    <div class="link current">
+                        <span>{{ offset }}</span>
+                    </div>
+                    
+                    {% if offset + 1 <= nbrOffset %}
+                        <div class="link">
+                            <a href="{{ path("app_admin_provider", {"offset": offset + 1}) }}">
+                                <span>{{ offset + 1 }}</span>
+                            </a>
+                        </div>
+                    {% endif %}
+                    
+                    {% if offset < nbrOffset %}
+                        <div class="link">
+                            <a href="{{ path("app_admin_provider", {"offset": nbrOffset}) }}">
+                                <img src="{{ asset("/content/svg/angles-right.svg") }}" alt="" />
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

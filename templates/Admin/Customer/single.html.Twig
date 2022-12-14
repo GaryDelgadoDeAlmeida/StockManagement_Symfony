@@ -1,0 +1,189 @@
+{% extends "baseAdmin.html.twig" %}
+
+{% block body %}
+<div class="customer">
+    <a href="{{ path("app_admin_customer") }}">
+        <button class="btn btn-outline-blue btn-return">
+            <img src="{{ asset("/content/svg/arrow-left-long.svg") }}" alt="" />
+            <span>Return</span>
+        </button>
+    </a>
+
+    <div class="single-customer">
+        <div class="left-content">
+            <div class="card-content">
+                <div class="-header">
+                    <h5>Customer</h5>
+                </div>
+                <div class="-body">
+                    <ul class="customer-menu">
+                        <li>
+                            <button>
+                                <a href="{{ path("app_admin_single_customer", {"customerID": customer.id}) }}">Profile</a>
+                            </button>
+                        </li>
+                        <li>
+                            <button>
+                                <a href="{{ path("app_admin_single_customer", {"customerID": customer.id, "onglet": "orders"}) }}">Current orders</a>
+                            </button>
+                        </li>
+                        <li>
+                            <button>
+                                <a href="{{ path("app_admin_single_customer", {"customerID": customer.id, "onglet": "past-orders"}) }}">Past orders</a>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="right-content">
+            {% if onglet is same as("profile") %}
+                <div class="card-content silver">
+                    <div class="-header">
+                        <h5>Profile</h5>
+                    </div>
+                    <div class="-body">
+                        <form class="form">
+                            
+                            <div class="form-field">
+                                <label>Firstname</label>
+                                <input type="text" />
+                            </div>
+                            
+                            <div class="form-field">
+                                <label>Lastname</label>
+                                <input type="text" />
+                            </div>
+                            
+                            <div class="form-field">
+                                <label>Email</label>
+                                <input type="email" />
+                            </div>
+                            
+                            <div class="form-field">
+                                <label>Phone</label>
+                                <input type="phone" />
+                            </div>
+                            
+                            <div class="form-field">
+                                <label>Address</label>
+                                <input type="text" />
+                            </div>
+                            
+                            <div class="form-field">
+                                <label>Zip code</label>
+                                <input type="text" />
+                            </div>
+                            
+                            <div class="form-field">
+                                <label>City</label>
+                                <input type="text" />
+                            </div>
+                            
+                            <div class="form-field">
+                                <label>Country</label>
+                                <select>
+                                    <option>Select a country</option>
+                                    {# {% for country in countries %}
+                                        <option value={{ country.code }} selected={{ country.name is same as(customer.country) ? true : false }}>{{ country.name }}</option>
+                                    {% endfor %} #}
+                                </select>
+                            </div>
+                            
+                            <div class="form-button">
+                                <button type="reset">Reset</button>
+                                <button type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            {% elseif onglet is same as("orders") %}
+                <div class="card-content silver">
+                    <div class="-header">
+                        <h5>Ongoing orders</h5>
+                    </div>
+                    <div class="-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Total amount</th>
+                                    <th>Status</th>
+                                    <th>Ordered at</th>
+                                    <th>Delivered at</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in orders %}
+                                    <tr class="order-card">
+                                        <td>{{ order.id }}</td>
+                                        <td>{{ orderTotalAmount(order) }}</td>
+                                        <td>
+                                            <span class="badge warning">{{ order.status }}</span>
+                                        </td>
+                                        <td>{{ order.createdAt|date("Y-m-d") }}</td>
+                                        <td>{{ order.deliveredAt ? order.deliveredAt|date("Y-m-d") : null }}</td>
+                                        <td>
+                                            <a href="{{ path("app_admin_customer_single_order", {"customerID": customer.id, "orderID": order.id}) }}">
+                                                <img src="/content/svg/eye.svg" alt="" />
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6">There is no order</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% elseif onglet is same as("past-orders") %}
+                <div class="past-orders card-content silver">
+                    <div class="-header">
+                        <h5>Past orders</h5>
+                    </div>
+                    <div class="-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Total amount</th>
+                                    <th>Status</th>
+                                    <th>Ordered at</th>
+                                    <th>Delivered at</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for pastOrder in pastOrders %}
+                                    <tr class="order-card">
+                                        <td>{{ pastOrder.id }}</td>
+                                        <td>{{ orderTotalAmount(pastOrder) }}</td>
+                                        <td>
+                                            <span class="badge success">{{ pastOrder.status }}</span>
+                                        </td>
+                                        <td>{{ pastOrder.createdAt|date("Y-m-d") }}</td>
+                                        <td>{{ pastOrder.deliveredAt|date("Y-m-d") }}</td>
+                                        <td>
+                                            <a href="{{ path("app_admin_customer_single_order", {"customerID": customer.id, "orderID": pastOrder.id}) }}">
+                                                <img src="/content/svg/eye.svg" alt="" />
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6">There is no order</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

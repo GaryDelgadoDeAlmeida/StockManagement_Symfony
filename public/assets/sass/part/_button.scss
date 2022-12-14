@@ -1,0 +1,117 @@
+/* ----------------------------------------------- *\
+                    Button
+\* ----------------------------------------------- */
+a, a:hover {
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+.btn {
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0.375rem 0.75rem;
+    border: 1px solid transparent;
+
+    &.btn-outline-white {
+        background-color: transparent;
+        border: 1px solid var(--c-white) !important;
+        color: var(--c-white) !important;
+    
+        &:hover {
+            background-color: var(--c-white);
+            color: var(--c-black) !important;
+        }
+    }
+
+    &.btn-outline-blue {
+        background-color: transparent;
+        border: 1px solid var(--c-blue) !important;
+        color: var(--c-blue) !important;
+    
+        &:hover {
+            background-color: var(--c-blue);
+            color: var(--c-white) !important;
+        }
+    }
+
+    &.btn-outline-green {
+        background-color: transparent;
+        border: 1px solid var(--c-green) !important;
+        color: var(--c-green) !important;
+    
+        &:hover {
+            background-color: var(--c-green);
+            color: var(--c-white) !important;
+        }
+    }
+
+    &.btn-rounded {
+        border-radius: 25px !important;
+    }
+    
+    &.btn-link {
+        color: var(--c-primaryBlue);
+    }
+    
+    &.btn-primary {
+        color: var(--c-white);
+        background-color: var(--c-mediumDarkShadeCyanBlue);
+
+        &:hover {
+            background-color: var(--c-white);
+            border-color: var(--c-mediumDarkShadeCyanBlue);
+            color: var(--c-mediumDarkShadeCyanBlue) !important;
+        }
+    }
+
+    &.btn-green {
+        color: var(--c-white) !important;
+        border: 1px solid var(--c-green) !important;
+        background-color: var(--c-green);
+    
+        &:hover {
+            background-color: transparent;
+            color: var(--c-green) !important;
+        }
+    }
+
+    &.btn-red {
+        color: var(--c-white) !important;
+        border: 1px solid var(--c-red) !important;
+        background-color: var(--c-red);
+
+        &:hover {
+            background-color: transparent;
+            color: var(--c-red) !important;
+        }
+    }
+
+    &.btn-return {
+        display: flex;
+        background-color: var(--c-blue);
+        border: 1px solid var(--c-blue) !important;
+        color: var(--c-white) !important;
+    
+        &:hover {
+            background-color: transparent;
+            color: var(--c-blue) !important;
+        }
+        
+        span {
+            padding: 0 15px;
+            margin: auto;
+            height: 100%;
+        }
+    }
+
+    img {
+        height: 25px;
+        width: 25px;
+    }
+}

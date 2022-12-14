@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{# CSS File #}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('/assets/build/index.css') }}">
+{% endblock %}
+
+{% block header %}
+    <header class="menu">
+        <div class="menu-logo">
+            <div class="logo">
+                <img src="{{ asset("/content/images/logo.png") }}" alt="" />
+                <span>Stock Management</span>
+            </div>
+        </div>
+
+        <ul class="menu-items">
+            <li class="menu-item">
+                <a href="{{ path("app_admin") }}">
+                    <img src="{{ asset("/content/svg/white/house.svg") }}" alt=""/>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ path("app_admin_product") }}">
+                    <img src="{{ asset("/content/svg/white/laptop.svg") }}" alt=""/>
+                    <span>Products</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ path("app_admin_sales") }}">
+                    <img src="{{ asset("/content/svg/white/cart-shopping.svg") }}" alt="" />
+                    <span>Sales</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ path("app_admin_customer") }}">
+                    <img src="{{ asset("/content/svg/white/users.svg") }}" alt="" />
+                    <span>Customers</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ path("app_admin_provider") }}">
+                    <img src="{{ asset("/content/svg/white/truck.svg") }}" alt="" />
+                    <span>Providers</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ path("app_admin_employee") }}">
+                    <img src="{{ asset("/content/svg/white/address-card.svg") }}" alt="" />
+                    <span>Employees</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ path("app_admin_payment") }}">
+                    <img src="{{ asset("/content/svg/white/sack-dollar.svg") }}" alt="" />
+                    <span>Payments</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="">
+                    <img src="{{ asset("/content/svg/white/power-off.svg") }}" alt="" />
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </header>
+{% endblock %}

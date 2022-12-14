@@ -1,0 +1,141 @@
+{% extends "baseAdmin.html.twig" %}
+
+{% block body %}
+    <div class="home">
+        <div class="card-content">
+            <div class="-body">
+                <div class="card-row">
+                    
+                    {# Clients #}
+                    <div class="card">
+                        <div class="-head">
+                            <span>Clients</span>
+                        </div>
+                        <div class="-content">
+                            <div class="-img">
+                                <img src="{{ asset("/content/svg/users.svg") }}" alt="" />
+                            </div>
+                            <div class="-numbers">
+                                <span>{{ nbrCustomers }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {# Employees #}
+                    <div class="card">
+                        <div class="-head">
+                            <span>Employees</span>
+                        </div>
+                        <div class="-content">
+                            <div class="-img">
+                                <img src="{{ asset("/content/svg/address-card.svg") }}" alt="" />
+                            </div>
+                            <div class="-numbers">
+                                <span>170</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {# Providers #}
+                    <div class="card">
+                        <div class="-head">
+                            <span>Providers</span>
+                        </div>
+                        <div class="-content">
+                            <div class="-img">
+                                <img src="{{ asset("/content/svg/truck.svg") }}" alt="" />
+                            </div>
+                            <div class="-numbers">
+                                <span>{{ nbrProviders }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {# Products #}
+                    <div class="card">
+                        <div class="-head">
+                            <span>Products</span>
+                        </div>
+                        <div class="-content">
+                            <div class="-img">
+                                <img src="{{ asset("/content/svg/laptop.svg") }}" alt="" />
+                            </div>
+                            <div class="-numbers">
+                                <span>{{ nbrProducts }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {# Commands #}
+                    <div class="card">
+                        <div class="-head">
+                            <span>Commands</span>
+                        </div>
+                        <div class="-content">
+                            <div class="-img">
+                                <img src="{{ asset("/content/svg/cart-shopping.svg") }}" alt="" />
+                            </div>
+                            <div class="-numbers">
+                                <span>{{ nbrOrders }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {# Profits #}
+                    <div class="card">
+                        <div class="-head">
+                            <span>Profits</span>
+                        </div>
+                        <div class="-content">
+                            <div class="-img">
+                                <img src="{{ asset("/content/svg/sack-dollar.svg") }}" alt="" />
+                            </div>
+                            <div class="-numbers">
+                                <span>1 852 871</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="drow">
+            <div class="card-content silver">
+                <div class="-header">
+                    <h5>Low storage products</h5>
+                </div>
+                
+                <div class="-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Product name</th>
+                                <th>Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in lowStorageProduct %}
+                                <tr>
+                                    <td class="_ID">{{ product.id }}</td>
+                                    <td class="_product_name">{{ product.name }}</td>
+                                    <td class="_stock">{{ product.stock }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="3">There is no product</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="current-time">
+                <div class="time">{{ currentTime|date("Y-m-d") }}</div>
+                <div class="date">{{ currentTime|date("H:i:s") }}</div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

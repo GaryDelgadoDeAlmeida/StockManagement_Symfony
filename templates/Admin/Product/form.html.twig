@@ -1,0 +1,49 @@
+{% extends "baseAdmin.html.twig" %}
+
+{% block body %}
+<a href="{{ path("app_admin_product") }}">
+    <button class="btn btn-outline-blue btn-return">
+        <img src="{{ asset("/content/svg/arrow-left-long.svg") }}" alt="" />
+        <span>Return</span>
+    </button>
+</a>
+
+<div class="card-content silver">
+    <div class="-header">
+        <h5>Product</h5>
+    </div>
+    <div class="-body">
+        {{ form_start(productForm, {"method": "POST", "attr": {"class": "form"}}) }}
+            <div class="form-field">
+                {{ form_label(productForm.imgFile) }}
+                {{ form_widget(productForm.imgFile) }}
+            </div>
+            
+            <div class="form-field">
+                {{ form_label(productForm.name) }}
+                {{ form_widget(productForm.name) }}
+            </div>
+            
+            <div class="form-field">
+                {{ form_label(productForm.description) }}
+                {{ form_widget(productForm.description) }}
+            </div>
+            
+            <div class="form-field">
+                {{ form_label(productForm.stock) }}
+                {{ form_widget(productForm.stock) }}
+            </div>
+            
+            <div class="form-field">
+                {{ form_label(productForm.price) }}
+                {{ form_widget(productForm.price) }}
+            </div>
+            
+            <div class="form-button">
+                <button type="submit">Submit</button>
+                <button type="reset">Reset</button>
+            </div>
+        {{ form_end(productForm) }}
+    </div>
+</div>
+{% endblock %}

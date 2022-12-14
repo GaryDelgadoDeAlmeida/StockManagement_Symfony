@@ -1,0 +1,176 @@
+{% extends "baseAdmin.html.twig" %}
+
+{% block body %}
+<a href="{{ path("app_admin_provider") }}">
+    <button class="btn btn-outline-blue btn-return">
+        <img src="{{ asset("/content/svg/arrow-left-long.svg") }}" alt="" />
+        <span>Return</span>
+    </button>
+</a>
+
+<div class="single-provider profile">
+    <div class="left-content">
+        <div class="card-content">
+            <div class="-header">
+                <h5>Provider</h5>
+            </div>
+            <div class="-body">
+                <ul class="customer-menu">
+                    <li>
+                        <button>
+                            <a href="{{ path("app_admin_single_provider", {"providerID": provider.id}) }}">Profile</a>
+                        </button>
+                    </li>
+                    <li>
+                        <button>
+                            <a href="{{ path("app_admin_single_provider", {"providerID": provider.id, "onglet": "products"}) }}">Products</a>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="right-content">
+        {% if onglet is same as("profile") %}
+            <div class="card-content silver">
+                <div class="-header">
+                    <h5>Profile</h5>
+                </div>
+                <div class="-body">
+                    {{ form_start(entityForm, {"attr": {"class": "form"}, "method": "POST"}) }}
+                        <div class="form-field">
+                            {{ form_label(entityForm.name) }}
+                            {{ form_widget(entityForm.name) }}
+                        </div>
+
+                        <div class="form-field">
+                            {{ form_label(entityForm.socialName) }}
+                            {{ form_widget(entityForm.socialName) }}
+                        </div>
+
+                        <div class="form-field">
+                            {{ form_label(entityForm.legalStatus) }}
+                            {{ form_widget(entityForm.legalStatus) }}
+                        </div>
+
+                        <div class="form-field">
+                            {{ form_label(entityForm.siret) }}
+                            {{ form_widget(entityForm.siret) }}
+                        </div>
+
+                        <div class="form-field">
+                            {{ form_label(entityForm.siren) }}
+                            {{ form_widget(entityForm.siren) }}
+                        </div>
+
+                        <div class="form-field">
+                            {{ form_label(entityForm.address) }}
+                            {{ form_widget(entityForm.address) }}
+                        </div>
+
+                        <div class="form-field">
+                            {{ form_label(entityForm.zipCode) }}
+                            {{ form_widget(entityForm.zipCode) }}
+                        </div>
+
+                        <div class="form-field">
+                            {{ form_label(entityForm.city) }}
+                            {{ form_widget(entityForm.city) }}
+                        </div>
+
+                        <div class="form-field">
+                            {{ form_label(entityForm.country) }}
+                            {{ form_widget(entityForm.country) }}
+                        </div>
+                        
+                        <div class="form-button">
+                            <button type="reset">Reset</button>
+                            <button type="submit">Submit</button>
+                        </div>
+                    {{ form_end(entityForm) }}
+                </div>
+            </div>
+        {% elseif onglet is same as("products") %}
+            <div class="card-content silver">
+                <div class="-header">
+                    <h5>Products</h5>
+                </div>
+                <div class="-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product name</th>
+                                <th>Stock</th>
+                                <th>Price</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in products %}
+                                <tr>
+                                    <td>{{ product.name }}</td>
+                                    <td>{{ product.stock }}</td>
+                                    <td>{{ product.price }}</td>
+                                    <td>
+                                        <a href="{{ path("app_admin_single_product", {"productID": product.id}) }}">
+                                            <img src="{{ asset("/content/svg/eye.svg") }}" alt="" />
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="4">There is no product</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    {# Pagination #}
+                    {% if nbrOffset > 1 and offset <= nbrOffset %}
+                        <div class="pagination">
+                            <div class="pagination-wrapper">
+
+                                {% if offset > 1 %}
+                                    <div class="link">
+                                        <a href="{{ path("app_admin_product") }}">
+                                            <img src="{{ asset("/content/svg/angles-left.svg") }}" alt="" />
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                
+                                {% if offset - 1 >= 1 %}
+                                    <div class="link">
+                                        <a href="{{ path("app_admin_product", {"offset": offset - 1}) }}">
+                                            <span>{{ offset - 1 }}</span>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                
+                                <div class="link current">
+                                    <span>{{ offset }}</span>
+                                </div>
+                                
+                                {% if offset + 1 <= nbrOffset %}
+                                    <div class="link">
+                                        <a href="{{ path("app_admin_product", {"offset": offset + 1}) }}">
+                                            <span>{{ offset + 1 }}</span>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                
+                                {% if offset < nbrOffset %}
+                                    <div class="link">
+                                        <a href="{{ path("app_admin_product", {"offset": nbrOffset}) }}">
+                                            <img src="{{ asset("/content/svg/angles-right.svg") }}" alt="" />
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

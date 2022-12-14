@@ -1,0 +1,43 @@
+.pagination {
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+    margin-top: 15px;
+    background-color: var(--c-veryLightGrey);
+
+    .pagination-wrapper {
+        height: 100%;
+        display: flex;
+        padding: 15px 0;
+        justify-content: center;
+
+        .link {
+            width: 20px;
+            text-align: center;
+            vertical-align: middle;
+            border-bottom: 1px solid transparent;
+
+            &.current {
+                border-bottom: 1px solid var(--c-black);
+            }
+
+            &:hover {
+                border-bottom: 1px solid var(--c-secondaryBlue);
+
+                a, span {
+                    color: var(--c-secondaryBlue);
+                }
+            }
+
+            a {
+                width: 100%;
+                text-decoration: none;
+                color: var(--c-black);
+            }
+
+            img {
+                width: 10px;
+            }
+        }
+    }
+}

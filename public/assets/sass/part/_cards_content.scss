@@ -1,0 +1,42 @@
+.card-content {
+    padding: 15px 25px;
+    border-radius: 10px;
+
+    // &:not(:last-child) {
+    //     margin-bottom: 25px;
+    // }
+
+    &.silver {
+        background-color: var(--c-white);
+        box-shadow: 2px 2px 2px var(--c-lightSilver);
+
+        .-header {
+            border-bottom: 1px solid var(--c-grey);
+        }
+    }
+
+    .-header {
+        display: flex;
+        
+        h5 {
+            margin: 15px 0;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--c-darkShadeCyanBlue);
+        }
+
+        .-left-content {
+            display: flex;
+            width: calc(100% - 250px);
+        }
+
+        .-right-content {
+            width: 300px;
+            margin: auto 0;
+        }
+    }
+
+    .-body {
+        margin-top: 15px;
+    }
+}

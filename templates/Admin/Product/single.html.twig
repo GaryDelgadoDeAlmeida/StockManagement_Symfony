@@ -1,0 +1,58 @@
+{% extends "baseAdmin.html.twig" %}
+
+{% block body %}
+<a href="{{ path("app_admin_product") }}">
+    <button class="btn btn-outline-blue btn-return">
+        <img src="{{ asset("/content/svg/arrow-left-long.svg") }}" alt="" />
+        <span>Return</span>
+    </button>
+</a>
+
+<div class="card-content silver">
+    <div class="-body drow">
+        <div class="left w-25">
+            <img src="{{ imgFile != null ? asset(imgFile) : imgFile }}" alt={{ product.name }} />
+        </div>
+        <div class="right w-75">
+            <h3 class="product-title">{{ product.name }}</h3>
+            
+            <div class="price">
+                <span>{{ product.price }} €</span>
+            </div>
+            
+            <a href="{{ path("app_update_product", {"productID": product.id}) }}">
+                <button class="btn btn-primary">
+                    <img src="{{ asset("/content/svg/pencil.svg") }}" alt="" />
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="card-content silver">
+    <div class="-header">
+        <h5>Description</h5>
+    </div>
+    <div class="-body">
+        <p>{{ product.description }}</p>
+    </div>
+</div>
+
+<div class="card-content silver">
+    <div class="-header">
+        <h5>Caracteristics</h5>
+    </div>
+    <div class="-body">
+        <table>
+            <tbody>
+                {% for caracteristic in product.caracteristics %}
+                    <tr>
+                        <td class="txt-left _{{ caracteristic.title }}">{{ caracteristic.title }}</td>
+                        <td class="txt-left">{{ caracteristic.description }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

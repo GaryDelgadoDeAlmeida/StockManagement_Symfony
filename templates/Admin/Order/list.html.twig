@@ -1,0 +1,144 @@
+{% extends "baseAdmin.html.twig" %}
+
+{% block body %}
+<div class="card-content silver">
+    <div class="widget">
+            
+        {# widget 1 #}
+        <div class="widget-content">
+            <div class="widget-left">
+                <span class="widget-numbers c-green">{{ nbrTotalOrders }}</span>
+            </div>
+            <div class="widget-right">
+                <h5 class="widget-title">Total orders</h5>
+                <p class="widget-info">Current year expenses</p>
+            </div>
+        </div>
+
+        {# widget 2 #}
+        <div class="widget-content">
+            <div class="widget-left">
+                <span class="widget-numbers c-yellow">{{ nbrOngoingOrders }}</span>
+            </div>
+            <div class="widget-right">
+                <h5 class="widget-title">Ongoing orders</h5>
+                <p class="widget-info">Current orders still delivering</p>
+            </div>
+        </div>
+
+        {# widget 3 #}
+        <div class="widget-content">
+            <div class="widget-left">
+                <span class="widget-numbers c-red">{{ totalAmountSoldedProducts }} M</span>
+            </div>
+            <div class="widget-right">
+                <h5 class="widget-title">Products sold (€)</h5>
+                <p class="widget-info">Current year total profits</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="drow">
+    <div class="card-content silver h-400p">
+        <div class="-header">
+            <h5>Ongoing orders</h5>
+        </div>
+        <div class="-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Customer</th>
+                        <th>Paid</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sale in ongoingSales %}
+                        <tr>
+                            <td>{{ sale.id }}</td>
+                            <td>{{ sale.customer.firstname }} {{ sale.customer.lastname }}</td>
+                            <td>{{ sale.paid ? "Yes" : "No" }}</td>
+                            <td class="_status">
+                                <span class="badge warning">{{ sale.status }}</span>
+                            </td>
+                            <td>{{ sale.createdAt|date("Y-m-d") }}</td>
+                            <td>
+                                <a href="{{ path("app_admin_single_order", {"salesID": sale.id}) }}">
+                                    <img src="{{ asset("/content/svg/eye.svg") }}" alt={""} />
+                                </Link>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            <a class="btn btn-primary" href="{{ path("app_admin_ongoing_orders") }}">See more</a>
+        </div>
+    </div>
+    
+    <div class="card-content silver"}>
+        <div class="-header"}>
+            <h5>Best selling products</h5>
+        </div>
+        <div class="-body"}>
+            <table>
+                <tbody>
+                    {% for product in bestSelledProducts %}
+                        <tr>
+                            <td>
+                                <img src={"/content/products/1.png"} alt={""} />
+                            </td>
+                            <td class="txt-left"}>
+                                <div class="sale-name"}>
+                                    <span>Computer</span>
+                                    <small>800 €</small>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="sale-name"}>
+                                    <span>200</span>
+                                    <small>sold</small>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="drow"}>
+    <div class="card-content silver"}>
+        <div class="-header"}>
+            <h5>Top seller</h5>
+        </div>
+        <div class="-body h-400p"}>
+            <table>
+                <tbody>
+                    {% for customer in bestSeller %}
+                        <tr>
+                            <td>
+                                <img src={"/content/images/logo.png"} alt={""} />
+                            </td>
+                            <td class="txt-left"}>Garry Almeida</td>
+                            <td>1000 €</td>
+                            <td>
+                                <Link to={"/customers/1"}>
+                                    <img src={"/content/svg/eye.svg"} alt={""} />
+                                </Link>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="card-content"}></div>
+</div>
+{% endblock %}

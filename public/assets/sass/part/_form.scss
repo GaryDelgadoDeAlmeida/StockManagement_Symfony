@@ -1,0 +1,129 @@
+.form {
+    margin: 15px 0;
+    
+    .form-field {
+        flex: 1;
+        display: flex;
+        line-height: 30px;
+        flex-direction: column;
+
+        &:not(:last-child) {
+            margin-bottom: 10px;
+        }
+
+        label {
+            gap: 5px;
+            display: flex;
+            padding-bottom: 5px;
+
+            &[for] {
+                font-weight: 700;
+            }
+
+            span {
+                margin: auto 0;
+            }
+        }
+
+        input:not([type="file"]) {
+            height: 35px;
+            padding: 0 20px;
+            border-radius: 25px;
+            border: 1px solid var(--c-silver);
+        }
+
+        textarea {
+            height: 80px;
+            padding: 20px;
+            border-radius: 25px;
+            border: 1px solid var(--c-silver);
+        }
+
+        select {
+            height: 35px;
+            padding: 0 15px;
+            border-radius: 25px;
+            border: 1px solid var(--c-silver);
+
+            &[multiple] {
+                height: 150px;
+                scrollbar-width: none;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .form-radio {
+        // 
+    }
+
+    .form-multiple-fields {
+        // 
+
+        .form-multiple-bg {
+            padding: 15px;
+            border-radius: 10px;
+            background-color: var(--c-white);
+            border: 1px solid var(--c-silver);
+
+            &:not(:last-child) {
+                margin-bottom: 15px;
+            }
+        }
+    }
+
+    .form-button {
+        margin: 20px 0;
+        text-align: right;
+
+        button {
+            height: 35px;
+            border: none;
+            padding: 0 15px;
+            min-width: 100px;
+            text-align: center;
+            border-radius: 10px;
+
+            &[type="submit"] {
+                color: var(--c-white);
+                border: 1px solid var(--c-white);
+                background-color: var(--c-green);
+
+                &:hover {
+                    color: var(--c-green);
+                    border: 1px solid var(--c-green);
+                    background-color: var(--c-white);
+                }
+
+                &.blue {
+                    background-color: var(--c-blue);
+
+                    &:hover {
+                        color: var(--c-blue);
+                        border: 1px solid var(--c-blue);
+                        background-color: var(--c-white);
+                    }
+                }
+            }
+
+            &[type="reset"] {
+                color: var(--c-white);
+                border: 1px solid var(--c-white);
+                background-color: var(--c-red);
+
+                &:hover {
+                    color: var(--c-red);
+                    border: 1px solid var(--c-red);
+                    background-color: var(--c-white);
+                }
+            }
+
+            &:not(:first-child) {
+                margin-left: 10px;
+            }
+        }
+    }
+}
