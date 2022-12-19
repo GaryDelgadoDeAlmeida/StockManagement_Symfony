@@ -7,18 +7,12 @@
             <h5>Customers</h5>
         </div>
         <div class="-right-content">
-            <form class="search-form">
-                <input 
-                    class="form-field"
-                    type="text"
-                    placeholder="Search a customer"
-                    maxLength=255
-                />
-
+            {{ form_start(searchForm, {"method": "POST", "attr": {"class": "search-form"}}) }}
+                {{ form_widget(searchForm.researchedValue, {"attr": {"placeholder": "Search a customer"}}) }}
                 <button type="submit" class="form-button">
                     <img src="{{ asset("/content/svg/magnifying-glass.svg") }}" alt="" />
                 </button>
-            </form>
+            {{ form_end(searchForm) }}
         </div>
     </div>
 

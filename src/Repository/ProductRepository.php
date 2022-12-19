@@ -87,9 +87,34 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param string value
+     */
+    public function searchProduct(string $value)
+    {
+        return $this->createQueryBuilder("p")
+            ->where("p.name LIKE :value")
+            ->setParameter("value", "%{$value}%")
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
      * @return int Return the number of products
      */
     public function countProducts()
+    {
+        return $this->createQueryBuilder("p")
+            ->select("COUNT(p.id) as nbrProducts")
+            ->getQuery()
+            ->getSingleResult()["nbrProducts"]
+        ;
+    }
+
+    /**
+     * @return int
+     */
+    public function countLowStorageProduct()
     {
         return $this->createQueryBuilder("p")
             ->select("COUNT(p.id) as nbrProducts")

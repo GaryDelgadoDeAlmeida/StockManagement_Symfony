@@ -79,8 +79,7 @@ class EntityType extends AbstractType
                     return $country;
                 },
                 "multiple" => false,
-                "required" => true,
-                "mapped" => false
+                "required" => true
             ])
         ;
     }

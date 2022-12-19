@@ -56,12 +56,45 @@ class CustomerRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param string value
+     * @return Customer[]
+     */
+    public function searchCustomers(string $value)
+    {
+        return $this->createQueryBuilder("c")
+            ->where("c.firstname LIKE :value")
+            ->orWhere("c.lastname LIKE :value")
+            ->orWhere("c.email LIKE :value")
+            ->setParameter("value", "%{$value}%")
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
      * @return int Return the number of customers
      */
     public function countCustomers()
     {
         return $this->createQueryBuilder("c")
             ->select("COUNT(c.id) as nbrCustomers")
+            ->getQuery()
+            ->getSingleResult()["nbrCustomers"]
+        ;
+    }
+
+    /**
+     * @param string value
+     * @return int
+     */
+    public function countSearchedCustomer(string $value)
+    {
+        return $this->createQueryBuilder("c")
+            ->select("COUNT(c.id) as nbrCustomers")
+            ->where("c.firstname LIKE :value")
+            ->orWhere("c.lastname LIKE :value")
+            ->orWhere("c.email LIKE :value")
+            ->setParameter("value", "%{$value}%")
             ->getQuery()
             ->getSingleResult()["nbrCustomers"]
         ;

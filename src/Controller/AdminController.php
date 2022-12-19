@@ -2,13 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Media;
-use App\Entity\Order;
-use App\Entity\Entity;
-use App\Entity\Product;
-use App\Entity\Customer;
-use App\Form\EntityType;
-use App\Form\ProductType;
+use App\Form\{ EntityType, ProductType, CustomerType, SearchType };
+use App\Entity\{ Media, Order, Entity, Product, Customer };
 use App\Manager\MediaManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,22 +41,37 @@ class AdminController extends AbstractController
     /**
      * @Route("/product", name="app_admin_product")
      */
-    public function admin_product(Request $request)
+    public function admin_product(Request $request): Response
     {
-        $offset = $request->get("offset") ? $request->get("offset") : 1;
+        $nbrOffset = 0;
+        $products = [];
+
         $limit = 20;
+        $offset = $request->get("offset") ? $request->get("offset") : 1;
+        $productRepo = $this->em->getRepository(Product::class);
+        $searchForm = $this->createForm(SearchType::class, null);
+        $searchForm->handleRequest($request);
+
+        if($searchForm->isSubmitted() && $searchForm->isValid()) {
+            $researchedValue = $searchForm->getData()["researchedValue"];
+            $products = $productRepo->searchProduct($researchedValue);
+        } else {
+            $products = $productRepo->getProducts($offset, $limit);
+            $nbrOffset = ceil($productRepo->countProducts() / $limit);
+        }
 
         return $this->render("admin/product/list.html.twig", [
-            "products" => $this->em->getRepository(Product::class)->getProducts($offset, $limit),
+            "searchForm" => $searchForm->createView(),
+            "products" => $products,
             "offset" => $offset,
-            "nbrOffset" => ceil($this->em->getRepository(Product::class)->countProducts() / $limit)
+            "nbrOffset" => $nbrOffset
         ]);
     }
 
     /**
      * @Route("/product/new", name="app_admin_new_product")
      */
-    public function admin_new_product(Request $request, MediaManager $mediaManager)
+    public function admin_new_product(Request $request, MediaManager $mediaManager): Response
     {
         $response = [];
         $product = new Product();
@@ -102,9 +112,25 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/product/lowstorage", name="app_admin_lowstorage_product")
+     */
+    public function admin_low_storage_product(Request $request)
+    {
+        $limit = 20;
+        $offset = $request->get("offset") ? $request->get("offset") : 1;
+        $productRepo = $this->em->getRepository(Product::class);
+
+        return $this->render("admin/product/lowstorage.html.twig", [
+            "lowStorages" => $productRepo->getLowStorageProduct($offset, $limit),
+            "offset" => $offset,
+            "nbrOffset" => ceil($productRepo->countLowStorageProduct() / $limit)
+        ]);
+    }
+
+    /**
      * @Route("/product/{productID}", name="app_admin_single_product")
      */
-    public function admin_single_product(int $productID)
+    public function admin_single_product(int $productID): Response
     {
         $product = $this->em->getRepository(Product::class)->find($productID);
         if(empty($product)) {
@@ -125,7 +151,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/product/{productID}/update", name="app_update_product")
      */
-    public function admin_update_product(int $productID, Request $request)
+    public function admin_update_product(int $productID, Request $request): Response
     {
         $product = $this->em->getRepository(Product::class)->find($productID);
         if(empty($product)) {
@@ -154,7 +180,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/product/{productID}/remove", name="app_admin_remove_product")
      */
-    public function admin_remove_product(int $productID)
+    public function admin_remove_product(int $productID): Response
     {
         return $this->render("admin/product/list.html.twig");
     }
@@ -162,7 +188,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/sales", name="app_admin_sales")
      */
-    public function admin_sales(Request $request)
+    public function admin_sales(Request $request): Response
     {
         $limit = 20;
         $offset = $request->get("offset") ? $request->get("offset") : 1;
@@ -180,7 +206,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/sales/{salesID}", requirements={"salesID" = "^\d+(?:\d+)?$"}, name="app_admin_single_order")
      */
-    public function admin_single_sale(int $salesID)
+    public function admin_single_sale(int $salesID): Response
     {
         $order = $this->em->getRepository(Order::class)->find($salesID);
         if(empty($order)) {
@@ -195,7 +221,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/sales/ongoing-orders", name="app_admin_ongoing_orders")
      */
-    public function admin_ongoing_orders(Request $request)
+    public function admin_ongoing_orders(Request $request): Response
     {
         return $this->render("admin/order/ongoing.html.twig");
     }
@@ -203,24 +229,47 @@ class AdminController extends AbstractController
     /**
      * @Route("/customer", name="app_admin_customer")
      */
-    public function admin_customer(Request $request)
+    public function admin_customer(Request $request): Response
     {
+        $nbrOffset = 0;
+        $customers = [];
+
         $limit = 20;
         $offset = $request->get("offset") ? $request->get("offset") : 1;
+        $customerRepo = $this->em->getRepository(Customer::class);
+        $searchForm = $this->createForm(SearchType::class, null);
+        $searchForm->handleRequest($request);
+
+        if($searchForm->isSubmitted() && $searchForm->isValid()) {
+            $researchedValue = $searchForm->getData()["researchedValue"];
+            
+            if(!empty($researchedValue)) {
+                $customers = $customerRepo->searchCustomers($researchedValue);
+                $nbrOffset = ceil($customerRepo->countSearchedCustomer($researchedValue) / $limit);
+            } else {
+                $customers = $customerRepo->getCustomers($offset, $limit);
+                $nbrOffset = ceil($customerRepo->countCustomers() / $limit);
+            }
+        } else {
+            $customers = $customerRepo->getCustomers($offset, $limit);
+            $nbrOffset = ceil($customerRepo->countCustomers() / $limit);
+        }
 
         return $this->render("admin/customer/list.html.twig", [
             "offset" => $offset,
-            "nbrOffset" => ceil($this->em->getRepository(Customer::class)->countCustomers() / $limit),
-            "customers" => $this->em->getRepository(Customer::class)->getCustomers($offset, $limit)
+            "searchForm" => $searchForm->createView(),
+            "nbrOffset" => $nbrOffset,
+            "customers" => $customers
         ]);
     }
 
     /**
      * @Route("/customer/{customerID}", requirements={"customerID" = "^\d+(?:\d+)?$"}, name="app_admin_single_customer")
      */
-    public function admin_single_customer(int $customerID, Request $request)
+    public function admin_single_customer(int $customerID, Request $request): Response
     {
-        $orders = $pastOrders = [];
+        $response = $orders = $pastOrders = [];
+        $customerForm = null;
         $onglet = $request->get("onglet") ? $request->get("onglet") : "profile";
 
         $customer = $this->em->getRepository(Customer::class)->find($customerID);
@@ -232,20 +281,36 @@ class AdminController extends AbstractController
             $orders = $this->em->getRepository(Order::class)->getOrdersByCustomerID($customerID);
         } elseif($onglet === "past-orders") {
             $pastOrders = $this->em->getRepository(Order::class)->getPastOrdersByCustomerID($customerID);
+        } else {
+            $customerForm = $this->createForm(CustomerType::class, $customer);
+            $customerForm->handleRequest($request);
+
+            if($customerForm->isSubmitted() && $customerForm->isValid()) {
+                try {
+                    // 
+                } catch(\Exception $e) {
+                    $response = [
+                        "class" => "danger",
+                        "message" => $e->getMessage()
+                    ];
+                } finally {}
+            }
         }
 
         return $this->render("admin/customer/single.html.twig", [
+            "response" => $response,
             "onglet" => $onglet,
             "customer" => $customer,
             "orders" => $orders,
-            "pastOrders" => $pastOrders
+            "pastOrders" => $pastOrders,
+            "customerForm" => !empty($customerForm) ? $customerForm->createView() : null
         ]);
     }
 
     /**
      * @Route("/customer/{customerID}/order/{orderID}", requirements={"customerID" = "^\d+(?:\d+)?$", "orderID" = "^\d+(?:\d+)?$"}, name="app_admin_customer_single_order")
      */
-    public function admin_customer_single_order(int $customerID, int $orderID)
+    public function admin_customer_single_order(int $customerID, int $orderID): Response
     {
         return $this->render("admin/customer/singleOrder.html.twig");
     }
@@ -253,7 +318,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/provider", name="app_admin_provider")
      */
-    public function admin_provider(Request $request)
+    public function admin_provider(Request $request): Response
     {
         $limit = 20;
         $offset = $request->get("offset") ? $request->get("offset") : 1;
@@ -268,7 +333,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/provider/new", name="app_new_provider")
      */
-    public function admin_new_provider()
+    public function admin_new_provider(): Response
     {
         return $this->render("admin/entity/form.html.twig");
     }
@@ -276,7 +341,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/provider/{providerID}", requirements={"providerID" = "^\d+(?:\d+)?$"}, name="app_admin_single_provider")
      */
-    public function admin_single_provider(int $providerID, Request $request)
+    public function admin_single_provider(int $providerID, Request $request): Response
     {
         $response = $products = [];
         $entityForm = null;
@@ -332,7 +397,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/employee", name="app_admin_employee")
      */
-    public function admin_employee()
+    public function admin_employee(): Response
     {
         return $this->render("admin/employee/list.html.twig");
     }
@@ -340,7 +405,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/payment", name="app_admin_payment")
      */
-    public function admin_payment()
+    public function admin_payment(): Response
     {
         return $this->render("admin/payment/index.html.twig");
     }

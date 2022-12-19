@@ -44,58 +44,57 @@
                         <h5>Profile</h5>
                     </div>
                     <div class="-body">
-                        <form class="form">
-                            
+                        {{ form_start(customerForm, {"method": "POST", "attr": {"class": "form"}}) }}
                             <div class="form-field">
-                                <label>Firstname</label>
-                                <input type="text" />
+                                {{ form_label(customerForm.firstname) }}
+                                {{ form_widget(customerForm.firstname) }}
                             </div>
-                            
+
                             <div class="form-field">
-                                <label>Lastname</label>
-                                <input type="text" />
+                                {{ form_label(customerForm.lastname) }}
+                                {{ form_widget(customerForm.lastname) }}
                             </div>
-                            
+
                             <div class="form-field">
-                                <label>Email</label>
-                                <input type="email" />
+                                {{ form_label(customerForm.email) }}
+                                {{ form_widget(customerForm.email) }}
                             </div>
-                            
+
                             <div class="form-field">
-                                <label>Phone</label>
-                                <input type="phone" />
+                                {{ form_label(customerForm.phone) }}
+                                {{ form_widget(customerForm.phone) }}
                             </div>
-                            
+
                             <div class="form-field">
-                                <label>Address</label>
-                                <input type="text" />
+                                {{ form_label(customerForm.fax) }}
+                                {{ form_widget(customerForm.fax) }}
                             </div>
-                            
+
                             <div class="form-field">
-                                <label>Zip code</label>
-                                <input type="text" />
+                                {{ form_label(customerForm.address) }}
+                                {{ form_widget(customerForm.address) }}
                             </div>
-                            
+
                             <div class="form-field">
-                                <label>City</label>
-                                <input type="text" />
+                                {{ form_label(customerForm.zipCode) }}
+                                {{ form_widget(customerForm.zipCode) }}
                             </div>
-                            
+
                             <div class="form-field">
-                                <label>Country</label>
-                                <select>
-                                    <option>Select a country</option>
-                                    {# {% for country in countries %}
-                                        <option value={{ country.code }} selected={{ country.name is same as(customer.country) ? true : false }}>{{ country.name }}</option>
-                                    {% endfor %} #}
-                                </select>
+                                {{ form_label(customerForm.city) }}
+                                {{ form_widget(customerForm.city) }}
                             </div>
-                            
+
+                            <div class="form-field">
+                                {{ form_label(customerForm.country) }}
+                                {{ form_widget(customerForm.country) }}
+                            </div>
+
                             <div class="form-button">
                                 <button type="reset">Reset</button>
                                 <button type="submit">Submit</button>
                             </div>
-                        </form>
+                        {{ form_end(customerForm) }}
                     </div>
                 </div>
             {% elseif onglet is same as("orders") %}
