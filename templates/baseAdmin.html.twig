@@ -1,9 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {# CSS File #}
-{% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="{{ asset('/assets/build/index.css') }}">
-{% endblock %}
 
 {% block header %}
     <header class="menu">
@@ -58,7 +55,7 @@
                 </a>
             </li>
             <li class="menu-item">
-                <a href="">
+                <a href="{{ path("app_logout") }}">
                     <img src="{{ asset("/content/svg/white/power-off.svg") }}" alt="" />
                     <span>Logout</span>
                 </a>
