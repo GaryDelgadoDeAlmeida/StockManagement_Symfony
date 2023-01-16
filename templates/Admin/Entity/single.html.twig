@@ -17,14 +17,14 @@
             <div class="-body">
                 <ul class="customer-menu">
                     <li>
-                        <button>
-                            <a href="{{ path("app_admin_single_provider", {"providerID": provider.id}) }}">Profile</a>
-                        </button>
+                        <a href="{{ path("app_admin_single_provider", {"providerID": provider.id}) }}">
+                            <button>Profile</button>
+                        </a>
                     </li>
                     <li>
-                        <button>
-                            <a href="{{ path("app_admin_single_provider", {"providerID": provider.id, "onglet": "products"}) }}">Products</a>
-                        </button>
+                        <a href="{{ path("app_admin_single_provider", {"providerID": provider.id, "onglet": "products"}) }}">
+                            <button>Products</button>
+                        </a>
                     </li>
                 </ul>
             </div>

@@ -18,19 +18,19 @@
                 <div class="-body">
                     <ul class="customer-menu">
                         <li>
-                            <button>
-                                <a href="{{ path("app_admin_single_customer", {"customerID": customer.id}) }}">Profile</a>
-                            </button>
+                            <a href="{{ path("app_admin_single_customer", {"customerID": customer.id}) }}">
+                                <button>Profile</button>
+                            </a>
                         </li>
                         <li>
-                            <button>
-                                <a href="{{ path("app_admin_single_customer", {"customerID": customer.id, "onglet": "orders"}) }}">Current orders</a>
-                            </button>
+                            <a href="{{ path("app_admin_single_customer", {"customerID": customer.id, "onglet": "orders"}) }}">
+                                <button>Current orders</button>
+                            </a>
                         </li>
                         <li>
-                            <button>
-                                <a href="{{ path("app_admin_single_customer", {"customerID": customer.id, "onglet": "past-orders"}) }}">Past orders</a>
-                            </button>
+                            <a href="{{ path("app_admin_single_customer", {"customerID": customer.id, "onglet": "past-orders"}) }}">
+                                <button>Past orders</button>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -123,7 +123,7 @@
                                             <span class="badge warning">{{ order.status }}</span>
                                         </td>
                                         <td>{{ order.createdAt|date("Y-m-d") }}</td>
-                                        <td>{{ order.deliveredAt ? order.deliveredAt|date("Y-m-d") : null }}</td>
+                                        <td>{{ order.deliveredAt ? order.deliveredAt|date("Y-m-d") : "N/A" }}</td>
                                         <td>
                                             <a href="{{ path("app_admin_customer_single_order", {"customerID": customer.id, "orderID": order.id}) }}">
                                                 <img src="/content/svg/eye.svg" alt="" />

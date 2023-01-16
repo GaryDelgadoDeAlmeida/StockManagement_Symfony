@@ -48,7 +48,6 @@
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Customer</th>
                         <th>Paid</th>
                         <th>Status</th>
@@ -59,7 +58,6 @@
                 <tbody>
                     {% for sale in ongoingSales %}
                         <tr>
-                            <td>{{ sale.id }}</td>
                             <td>{{ sale.customer.firstname }} {{ sale.customer.lastname }}</td>
                             <td>{{ sale.paid ? "Yes" : "No" }}</td>
                             <td class="_status">
@@ -80,26 +78,26 @@
         </div>
     </div>
     
-    <div class="card-content silver"}>
-        <div class="-header"}>
+    <div class="card-content silver">
+        <div class="-header">
             <h5>Best selling products</h5>
         </div>
-        <div class="-body"}>
+        <div class="-body">
             <table>
                 <tbody>
                     {% for product in bestSelledProducts %}
                         <tr>
                             <td>
-                                <img src={"/content/products/1.png"} alt={""} />
+                                <img src="{{ asset("/content/products/1.png") }}" alt="" />
                             </td>
-                            <td class="txt-left"}>
-                                <div class="sale-name"}>
+                            <td class="txt-left">
+                                <div class="sale-name">
                                     <span>Computer</span>
                                     <small>800 €</small>
                                 </div>
                             </td>
                             <td>
-                                <div class="sale-name"}>
+                                <div class="sale-name">
                                     <span>200</span>
                                     <small>sold</small>
                                 </div>
@@ -112,25 +110,25 @@
     </div>
 </div>
 
-<div class="drow"}>
-    <div class="card-content silver"}>
-        <div class="-header"}>
+<div class="drow">
+    <div class="card-content silver">
+        <div class="-header">
             <h5>Top seller</h5>
         </div>
-        <div class="-body h-400p"}>
+        <div class="-body h-400p">
             <table>
                 <tbody>
                     {% for customer in bestSeller %}
                         <tr>
                             <td>
-                                <img src={"/content/images/logo.png"} alt={""} />
+                                <img src="{{ asset("/content/images/logo.png") }}" alt="" />
                             </td>
-                            <td class="txt-left"}>Garry Almeida</td>
+                            <td class="txt-left">Garry Almeida</td>
                             <td>1000 €</td>
                             <td>
-                                <Link to={"/customers/1"}>
-                                    <img src={"/content/svg/eye.svg"} alt={""} />
-                                </Link>
+                                <a href="{{ path("app_admin_single_customer", {"customerID": customer.id}) }}">
+                                    <img src="{{ asset("/content/svg/eye.svg") }}" alt="" />
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -139,6 +137,6 @@
         </div>
     </div>
     
-    <div class="card-content"}></div>
+    <div class="card-content"></div>
 </div>
 {% endblock %}

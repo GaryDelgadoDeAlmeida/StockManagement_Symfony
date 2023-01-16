@@ -55,6 +55,23 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param int offset
+     * @param int limit
+     * @return Product[]
+     */
+    public function getBestSelledProducts(int $offset, int $limit)
+    {
+        return $this->createQueryBuilder("p")
+            ->leftJoin("p.productOrders", "prdOrder")
+            ->where("prdOrder.quantity = MAX(prdOrder.quantity)")
+            ->setFirstResult(($offset - 1) * $limit)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
      * @param int entity id
      * @param int offset
      * @param int limit

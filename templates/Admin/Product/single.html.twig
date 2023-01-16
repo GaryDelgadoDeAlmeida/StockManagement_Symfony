@@ -11,7 +11,7 @@
 <div class="card-content silver">
     <div class="-body drow">
         <div class="left w-25">
-            <img src="{{ imgFile != null ? asset(imgFile) : imgFile }}" alt={{ product.name }} />
+            <img src="{{ asset(file_exist(imgFile)) }}" alt={{ product.name }} />
         </div>
         <div class="right w-75">
             <h3 class="product-title">{{ product.name }}</h3>

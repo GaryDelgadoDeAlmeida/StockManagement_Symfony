@@ -17,6 +17,7 @@
                     <th>Product name</th>
                     <th>Stock</th>
                     <th>Price</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +26,11 @@
                         <td>{{ lowStorage.name }}</td>
                         <td>{{ lowStorage.stock }}</td>
                         <td>{{ lowStorage.price }}</td>
+                        <td>
+                            <a href="{{ path("app_update_product", {"productID": lowStorage.id}) }}">
+                                <img src="{{ asset("/content/svg/pencil.svg") }}" alt="" />
+                            </a>
+                        </td>
                     </tr>
                 {% else %}
                     <tr>
