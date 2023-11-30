@@ -8,7 +8,14 @@
     <div class="-body">
         <form class="form" method="post">
             {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                <div class="notification danger">
+                    <div class="icon">
+                        <img src="{{ asset("/content/svg/red/closemark.svg") }}" alt=""/>
+                    </div>
+                    <div class="message">
+                        <span>{{ error.messageKey|trans(error.messageData, 'security') }}</span>
+                    </div>
+                </div>
             {% endif %}
 
             {% if app.user %}
